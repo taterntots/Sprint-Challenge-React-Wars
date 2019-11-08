@@ -23,6 +23,8 @@ const CharacterList = () => {
                 <CharacterCards 
                     key={char.id}
                     name={char.name}
+                    gender={char.gender}
+                    birth_year={char.birth_year}
                     />
             )
         })
