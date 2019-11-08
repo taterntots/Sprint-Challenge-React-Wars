@@ -8,6 +8,14 @@ const CharacterList = () => {
     const [characters, setCharacters] = useState([]);
     const [pageNum, setPageNum] = useState(1);
 
+    const Next = () => {
+        setPageNum(pageNum + 1);
+    }
+
+    const Previous = () => {
+        setPageNum(pageNum - 1);
+    }
+
     useEffect(() => {
         axios
             .get(`https://lambda-swapi.herokuapp.com/api/people/?page=${pageNum}`)
@@ -18,15 +26,15 @@ const CharacterList = () => {
             .catch(error => {
                 console.log('I AM ERROR ===>', error);
             })
-    }, [])
+    }, [pageNum])
 
     return(
         <Container>
             <Row>
-                {characters.map(char => {
+                {characters.map((char, index) => {
                     return(
                         <CharacterCards 
-                            key={char.id}
+                            key={index}
                             name={char.name}
                             gender={char.gender}
                             birth_year={char.birth_year}
@@ -35,7 +43,7 @@ const CharacterList = () => {
                 })}
             </Row>
             <div className='footer'>
-                <PageChange />
+                <PageChange next={Next} previous={Previous}/>
             </div>
         </Container>
     )
